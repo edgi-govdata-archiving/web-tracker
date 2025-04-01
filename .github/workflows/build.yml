@@ -1,0 +1,62 @@
+on:
+  pull_request: {}
+
+  push:
+    branches:
+      - main
+
+  # TODO: should probably separate out the downloading of the publish sheet
+  # data as a different workflow and have it commit to GitHub when changed.
+  schedule:
+    - cron: '20 * * * *'
+
+  workflow_dispatch: {}
+
+name: Build (and Publish to GH pages)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Download Publish Sheet
+        env:
+          PUBLISH_SHEET: ${{ secrets.PUBLISH_SHEET }}
+          GOOGLE_SERVICE_KEY: ${{ secrets.GOOGLE_SERVICE_KEY }}
+        run: |
+          node download-publish-sheet.js
+
+      - name: Build
+        run:
+          NODE_ENV=production node build.js
+
+      - name: Upload static files as artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs:
+      - build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

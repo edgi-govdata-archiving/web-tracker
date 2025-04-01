@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block main %}
+  <section>
+    {% include "intro-text.html" %}
+  </section>
+
+  <div id="tracker-list-view" class="tracker-data-view ">
+    {% include "filter-form.html" %}
+
+    <ol>
+      {% for row in trackerData %}
+        <li class="tracker-item" data-page-id="{{ row.page.uuid }}">
+          <div class="tracker-item--time" title="Changed between {{ row.humanTimeRange[0] }} and {{ row.humanTimeRange[1] }}">
+            <span class="label">
+              {% if row.dateRange[0] != row.dateRange[1] %}
+                Between
+              {% else %}
+                On
+              {% endif %}
+            </span>
+            {{ row.dateRange[0] }}
+            {% if row.dateRange[0] != row.dateRange[1] %}
+              <span class="separator">–</span>
+              {{ row.dateRange[1] }}
+            {% endif %}
+          </div>
+
+          <div class="tracker-item--agency">Agency: {{ row.agency }}</div>
+
+          <div class="tracker-item--title">{{ row.title }}</div>
+          <div class="tracker-item--url"><a href="{{ row.url | safe }}">{{ row.humanUrl }}</a></div>
+
+          <div class="tracker-item--tagging">
+            <ul class="tracker-item--change-type">
+              {% if row.accessChange %}<li class="change-type--access" data-change-type="access">Access Change</li>{% endif %}
+              {% if row.substanceChange %}<li class="change-type--substance" data-change-type="substance">Substance Change</li>{% endif %}
+            </ul>
+
+            <div class="tracker-item--topics">
+              <span class="label">Topics:</span>
+              <ul>
+                {% for topic in row.topics %}
+                  <li class="topic-name topic--{{ topic.code }}">{{ topic.name | nobreak }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
+
+          <details class="tracker-item--details">
+            <summary>Details…</summary>
+
+            <p class="tracker-item--description">{{ row.description }}</p>
+            <ul class="tracker-item--links">
+              <li><a href="{{ row.links.htmlA }}">View raw HTML before</a></li>
+              <li><a href="{{ row.links.htmlA }}">View raw HTML after</a></li>
+              {% if row.links.iaComparison %}
+                <li><a href="{{ row.links.iaComparison }}">Changes in Internet Archive</a></li>
+              {% endif %}
+              <li><a href="{{ row.links.iaTimeline }}">Timeline in Internet Archive</a></li>
+            </ul>
+            {% if pageChangeCounts[row.page.uuid] > 1 %}
+              <p><button onClick="window.edgiWebTracker.filterByPage('{{ row.page.uuid }}')">Show {{ pageChangeCounts[row.page.uuid] - 1 }} other change{% if pageChangeCounts[row.page.uuid] > 2 %}s{% endif %} to this page.</button></p>
+            {% endif %}
+          </details>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+{% endblock %}

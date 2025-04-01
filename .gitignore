@@ -1,0 +1,11 @@
+.DS_Store
+
+node_modules
+
+site
+
+# Other data-cache files get saved. This one is considered sensitive for now.
+data-cache/publish-sheet.json
+
+.env.*
+scratch.*
