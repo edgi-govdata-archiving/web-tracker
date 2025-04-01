@@ -5,6 +5,8 @@ import nunjucks from 'nunjucks';
 import { readPublishSheet, readPages, readVersions, savePages, saveVersions } from './lib/data-cache.js';
 import { WebMonitoringDb, parseScannerUrl } from './lib/web-monitoring-db.js';
 
+const BASE_PATH = process.env.BASE_PATH || '/';
+
 // FIXME: should probably include the palette here and write it out dynamically
 // to the HTML output.
 const topicCodes = [
@@ -162,6 +164,10 @@ templateEnv.addFilter('nobreak', (text, maxLength = 25) => {
   return text;
 });
 
+templateEnv.addFilter('sitePath', (urlPath) => {
+  if (urlPath.startsWith('/')) urlPath = urlPath.slice(1);
+  return path.join(BASE_PATH, urlPath);
+});
 
 const markdowner = markdownit({
   html: true,
@@ -204,6 +210,7 @@ await fs.cp('static', 'site/static', { recursive: true });
 
 for (const page of sitePages) {
   const content = templateEnv.render(page.template, {
+    BASE_PATH: process.env.BASE_PATH,
     trackerData: tableRows,
     pageChangeCounts,
     nav: sitePages,

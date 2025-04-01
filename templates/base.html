@@ -6,19 +6,19 @@
     {# <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open Sans:400,400i,700,700i&display=swap"> #}
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Open+Sans+Condensed:300,700|Source+Sans+Pro:300,400,400i,600&display=swap">
     {# <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700|Open+Sans+Condensed:300,700&display=swap"> #}
-    <link rel="stylesheet" href="/static/site.css">
+    <link rel="stylesheet" href="{{ "/static/site.css" | sitePath }}">
   </head>
   <body>
 
     <header id="site-header">
-      <img src="/static/edgi-square-charcoal.svg" alt="Environmental Data &amp; Governance Initiative" class="logo" height="16">
+      <img src="{{ "/static/edgi-square-charcoal.svg" | sitePath }}" alt="Environmental Data &amp; Governance Initiative" class="logo" height="16">
       <h1>
         Federal Environmental Web Tracker
       </h1>
       <nav>
         <ol>
           {% for page in nav %}
-            <li><a href="{{ page.path }}" class="{% if page.path == currentPage.path %}nav-active{% endif %}">{{ page.navTitle or page.title }}</a></li>
+            <li><a href="{{ page.path | sitePath }}" class="{% if page.path == currentPage.path %}nav-active{% endif %}">{{ page.navTitle or page.title }}</a></li>
           {% endfor %}
         </ol>
       </nav>
@@ -28,6 +28,6 @@
       {% block main %}{{ main_html | safe }}{% endblock %}
     </main>
 
-    <script type="module" src="/static/site.js"></script>
+    <script type="module" src="{{ "/static/site.js" | sitePath }}"></script>
   </body>
 </html>

@@ -36,6 +36,8 @@ jobs:
           node download-publish-sheet.js
 
       - name: Build
+        env:
+          BASE_PATH: ${{ vars.BASE_PATH }}
         run:
           NODE_ENV=production node build.js
 
