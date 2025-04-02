@@ -78,14 +78,26 @@ function filterRows(filters, index) {
 function indexRows() {
   // This isn't really much of an index, but we don't have so much data that
   // searching all these is too expensive.
+  //
+  // TODO: should probably pre-calculate this so we can generate it from the
+  // raw data objects instead of trying to reverse it out of the DOM.
   return Array.from(document.querySelectorAll('.tracker-row,.tracker-item')).map(node => {
-
-
     const changeTypes = Array.from(node.querySelectorAll('[data-change-type]'))
       .map(node => node.dataset.changeType);
+
+    // We expect each of these to be present for every item. Do not check for
+    // node existence: we WANT an error if a selector is wrong.
+    const searchableText = normalizeSearchText([
+      node.querySelector('.cell-url a,.tracker-item--url a').href,
+      node.querySelector('.cell-title,.tracker-item--title').textContent,
+      node.querySelector('.cell-agency,.tracker-item--agency').textContent.replace('Agency:', ''),
+      node.querySelector('.cell-description,.tracker-item--description').textContent,
+      Array.from(node.querySelectorAll('.topic-name')).map(n => n.textContent),
+    ].flat().filter(Boolean).join(' '));
+
     return {
       node,
-      text: normalizeSearchText(node.textContent),
+      text: searchableText,
       changeTypes: changeTypes,
       pageId: node.dataset.pageId,
     }
