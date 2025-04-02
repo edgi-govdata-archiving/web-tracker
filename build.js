@@ -110,8 +110,10 @@ for (const row of rows) {
     .filter(Boolean)
     .map((topic) => ({
       name: topic,
+      sortKey: topic.toLowerCase(),
       code: topicCodes.find(code => topic.toLowerCase().startsWith(code))
-    }));
+    }))
+    .sort((a, b) => (a.sortKey <= b.sortKey ? -1 : 1));
 
   tableRows.push({
     dateRange: [versionA.capture_time.slice(0, 10), versionB.capture_time.slice(0, 10)],
