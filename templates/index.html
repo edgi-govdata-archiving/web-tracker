@@ -24,7 +24,7 @@
       </thead>
       <tbody>
         {% for row in trackerData %}
-          <tr class="tracker-row">
+          <tr class="tracker-row" data-page-id="{{ row.page.uuid }}">
             <td class="cell-time" title="Changed between {{ row.humanTimeRange[0] }} and {{ row.humanTimeRange[1] }}">
               {{ row.dateRange[0] }}
               {% if row.dateRange[0] != row.dateRange[1] %}
