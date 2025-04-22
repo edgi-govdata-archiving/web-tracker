@@ -12,18 +12,8 @@
       {% for row in trackerData %}
         <li class="tracker-item" data-page-id="{{ row.page.uuid }}">
           <div class="tracker-item--time" title="Changed between {{ row.humanTimeRange[0] }} and {{ row.humanTimeRange[1] }}">
-            <span class="label">
-              {% if row.dateRange[0] != row.dateRange[1] %}
-                Between
-              {% else %}
-                On
-              {% endif %}
-            </span>
-            {{ row.dateRange[0] }}
-            {% if row.dateRange[0] != row.dateRange[1] %}
-              <span class="separator">–</span>
-              {{ row.dateRange[1] }}
-            {% endif %}
+            <span class="label">Date</span>
+            {{ row.dateRange[1] }}
           </div>
 
           <div class="tracker-item--agency">Agency: {{ row.agency }}</div>
@@ -47,10 +37,11 @@
             </div>
           </div>
 
+          <p class="tracker-item--description">{{ row.description }}</p>
+
           <details class="tracker-item--details">
             <summary>Details…</summary>
 
-            <p class="tracker-item--description">{{ row.description }}</p>
             <ul class="tracker-item--links">
               <li><a href="{{ row.links.htmlA }}">View raw HTML before</a></li>
               <li><a href="{{ row.links.htmlA }}">View raw HTML after</a></li>
