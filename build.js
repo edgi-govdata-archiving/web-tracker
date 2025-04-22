@@ -182,7 +182,7 @@ templateEnv.addFilter('markdown', (text) => {
 
 const sitePages = [
   { title: '', navTitle: 'Data', path: '/', template: 'index.html' },
-  { title: 'Non-Table View', path: '/non-tabular', template: 'non-tabular.html' },
+  { title: 'Table View', path: '/tabular', template: 'tabular.html' },
   { title: 'About', path: '/about/', template: 'about.html' }
 ];
 
