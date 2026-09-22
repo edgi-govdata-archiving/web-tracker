@@ -16,6 +16,15 @@
   --light-teal: #54CDBC;
 }
 
+@font-face {
+  font-family: 'Mona Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+  src: url("./fonts/Mona Sans/Mona-Sans-Regular.otf") format("opentype");
+}
+
+*/
 *,
 *::before,
 *::after {
@@ -26,7 +35,7 @@
 
 body {
   min-height: 100vh;
-  font-family: 'Mono Sans', sans-serif;
+  font-family: 'Mono Sans', serif;
   font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
