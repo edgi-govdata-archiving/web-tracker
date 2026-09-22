@@ -1,6 +1,19 @@
 
 :root {
-  --vt-c-white: #ffffff;
+  --white: #ffffff;
+  --beige-1: #092439;
+  --beige-2: #EEEBE6;
+  --beige-3: #E2E0DC;
+  --beige-4: #747270;
+
+  --edgi-blue: #092439;
+  --blue: #19649F;
+  --terracotta: #B85A50;
+  --mustard: #C99A3E;
+  --olive: #7A8450;
+  --plum: #7A5C7D;
+  --teal: #54CDBC;
+  --light-teal: #54CDBC;
 }
 
 *,
@@ -13,19 +26,7 @@
 
 body {
   min-height: 100vh;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    sans-serif;
+  font-family: 'Mono Sans', sans-serif;
   font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
