@@ -1,5 +1,5 @@
-import { savePublishSheet } from './lib/data-cache.js';
-import { BasicGoogleSheetClient } from './lib/sheets.js';
+import { savePublishSheet } from './data-cache.js';
+import { BasicGoogleSheetClient } from './sheets.js';
 
 const publishSheetId = process.env.PUBLISH_SHEET;
 const publishRange = process.env.PUBLISH_SHEET_RANGE || 'Publishing!A:ZZ';
