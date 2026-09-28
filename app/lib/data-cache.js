@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from "path-browserify"
 
-export const dataPath = path.resolve(import.meta.dirname, '../data-cache');
+export const dataPath = path.join('../data-cache');
 
 const publishSheetPath = path.join(dataPath, 'publish-sheet.json');
 const pagesPath = path.join(dataPath, 'pages.json');

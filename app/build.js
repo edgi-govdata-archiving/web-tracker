@@ -5,7 +5,8 @@ import nunjucks from 'nunjucks';
 import { readPublishSheet, readPages, readVersions, savePages, saveVersions } from './lib/data-cache.js';
 import { WebMonitoringDb, parseScannerUrl } from './lib/web-monitoring-db.js';
 
-const BASE_PATH = process.env.BASE_PATH || '/';
+//const BASE_PATH = process.env.BASE_PATH || '/';
+const BASE_PATH = '/';
 
 // FIXME: should probably include the palette here and write it out dynamically
 // to the HTML output.
@@ -30,6 +31,7 @@ const topicCodes = [
   'water',
   'administration',
 ];
+
 
 function dateToIaTimestamp(datetime) {
   return datetime.getUTCFullYear()
