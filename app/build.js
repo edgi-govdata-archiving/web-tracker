@@ -55,14 +55,14 @@ function iaComparisonUrl(versionA, versionB) {
   return null;
 }
 
-export function load(){
-  console.log("load...");
+export async function load(){
+  console.log("starting build::load()...");
 
-  const rows = await readPublishSheet();
-  if (!rows.length) {
-    console.error('No listings to publish. Maybe you need to run `download-publish-sheet.js` first?');
-    process.exit(1);
-  }
+  // const rows = await readPublishSheet();
+  // if (!rows.length) {
+  //   console.error('No listings to publish. Maybe you need to run `download-publish-sheet.js` first?');
+  //   process.exit(1);
+  // }
 
   const pages = await readPages();
   const versions = await readVersions();
