@@ -18,7 +18,7 @@ const relativeFolderPath = path.join('../data-cache');
 console.log("relativeFolderPath: " + relativeFolderPath);
 // console.log("relativeFolderPath: " + relativeFolderPath);
 
-//download();
+download();
 load();
 
 </script>

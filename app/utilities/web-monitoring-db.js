@@ -12,13 +12,27 @@ export class WebMonitoringDb {
   }
 
   async _fetch(url, options = {}) {
-      const response = await fetch(`${this.baseUrl}${url}`, options);
-      if (response.status >= 400) {
-          const text = await response.text();
-          throw new Error(`HTTP ${response.status} error: ${text}`);
+      // const response = await fetch(`${this.baseUrl}${url}`, options);
+      // if (response.status >= 400) {
+      //     const text = await response.text();
+      //     throw new Error(`HTTP ${response.status} error: ${text}`);
+      // }
+
+      // return await response.json();
+    console.log("WebMonitoringDb::fetch() -- " + url);
+    let response = '';
+
+       try {
+        response = await fetch(`${this.baseUrl}${url}`, options);
+      } catch (error) {
+        if (error.code === 'ENOENT') {
+          return [];
+        }
+
+        throw error;
       }
 
-      return await response.json();
+      return response.json()
   }
 }
 

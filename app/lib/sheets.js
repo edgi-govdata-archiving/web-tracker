@@ -5,6 +5,7 @@ export class BasicGoogleSheetClient {
     if (!credentials) {
       try {
         credentials = JSON.parse(atob(process.env.GOOGLE_SERVICE_KEY));
+        console.log("BasicGoogleSheetClient::constructor - " + credentials);
       } catch {
         throw new Error('Could not load credentials from GOOGLE_SERVICE_KEY env var. Set it to a base64-encoded version of the JSON credentials.');
       }

@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from "path-browserify"
 
-export const dataPath = path.join('../data-cache');
+export const dataPath = path.join(import.meta.dirname, '../data-cache');
 
 const publishSheetPath = path.join(dataPath, 'publish-sheet.json');
 const pagesPath = path.join(dataPath, 'pages.json');
@@ -10,6 +10,7 @@ const versionsPath = path.join(dataPath, 'versions.json');
 export async function readPublishSheet() {
   let raw = '';
   try {
+    console.log("publishSheetPath: " + publishSheetPath);
     raw = await fs.readFile(publishSheetPath, { encoding: 'utf-8' });
   } catch (error) {
     if (error.code === 'ENOENT') {
