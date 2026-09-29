@@ -6,8 +6,9 @@ import { readPublishSheet, readPages, readVersions, savePages, saveVersions } fr
 import { WebMonitoringDb, parseScannerUrl } from './lib/web-monitoring-db.js';
 
 import Bottleneck from "bottleneck";
-const BASE_PATH = process.env.BASE_PATH || '/';
-//const BASE_PATH = '/';
+
+//const BASE_PATH = process.env.BASE_PATH || '/';
+const BASE_PATH = '/';
 
 // FIXME: should probably include the palette here and write it out dynamically
 // to the HTML output.
@@ -95,13 +96,7 @@ export async function load(){
 
   const tableRows = [];
 
-  var testCount = 0; //only loading 5 rows for testing
   for (const row of rows) {
-    if (testCount >= 5){
-      break;
-    }
-    testCount++;
-
     console.log("Build::load() -- starting new page...");
     const scannerInfo = parseScannerUrl(row.last_two_side_by_side);
     let page = pages[scannerInfo.pageId];
