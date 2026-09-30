@@ -58,11 +58,11 @@ function iaComparisonUrl(versionA, versionB) {
 export async function load(){
   console.log("starting build::load()...");
 
-  // const rows = await readPublishSheet();
-  // if (!rows.length) {
-  //   console.error('No listings to publish. Maybe you need to run `download-publish-sheet.js` first?');
-  //   process.exit(1);
-  // }
+  const rows = await readPublishSheet();
+  if (!rows.length) {
+    console.error('No listings to publish. Maybe you need to run `download-publish-sheet.js` first?');
+    process.exit(1);
+  }
 
   const pages = await readPages();
   const versions = await readVersions();
@@ -90,16 +90,26 @@ export async function load(){
 
   const tableRows = [];
   for (const row of rows) {
+    console.log("Build::load() -- starting new page...");
     const scannerInfo = parseScannerUrl(row.last_two_side_by_side);
     let page = pages[scannerInfo.pageId];
     let versionA = versions[scannerInfo.beforeId];
     let versionB = versions[scannerInfo.afterId];
 
-    [page, versionA, versionB] = await Promise.all([
-      page || dbClient.getPage(scannerInfo.pageId),
-      versionA || dbClient.getVersion(scannerInfo.beforeId),
-      versionB || dbClient.getVersion(scannerInfo.afterId),
-    ]);
+    // [page, versionA, versionB] = await Promise.all([
+    //   page || dbClient.getPage(scannerInfo.pageId),
+    //   versionA || dbClient.getVersion(scannerInfo.beforeId),
+    //   versionB || dbClient.getVersion(scannerInfo.afterId),
+    // ]);
+
+    console.log("Build::load() -- loading page: " + scannerInfo.pageId);
+    page = page || await dbClient.getPage(scannerInfo.pageId);
+    console.log("Build::load() -- loading versionA: " + scannerInfo.beforeId);
+    versionA = versionA || await dbClient.getVersion(scannerInfo.beforeId);
+    console.log("Build::load() -- loading versionB: " + scannerInfo.afterId);
+    versionB = versionB || await dbClient.getVersion(scannerInfo.afterId);
+
+    console.log("Build::load() -- promises complete!");
 
     pages[scannerInfo.pageId] = page;
     versions[scannerInfo.beforeId] = versionA;
