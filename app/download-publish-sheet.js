@@ -15,7 +15,7 @@ export async function download(){
     process.exit(1);
   }
 
-  console.log('Loading Google sheet...');
+  console.error('Loading Google sheet...');
   const sheets = new BasicGoogleSheetClient();
   const rows = await sheets.readAsObjects({
     spreadsheetId: publishSheetId,
