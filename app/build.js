@@ -5,6 +5,8 @@ import nunjucks from 'nunjucks';
 import { readPublishSheet, readPages, readVersions, savePages, saveVersions } from './lib/data-cache.js';
 import { WebMonitoringDb, parseScannerUrl } from './lib/web-monitoring-db.js';
 
+import Bottleneck from "bottleneck";
+
 //const BASE_PATH = process.env.BASE_PATH || '/';
 const BASE_PATH = '/';
 
@@ -88,8 +90,19 @@ export async function load(){
     timeZoneName: 'short'
   });
 
+  const limiter = new Bottleneck({
+    minTime: 333
+  });
+
   const tableRows = [];
+
+  var testCount = 0; //only loading 5 rows for testing
   for (const row of rows) {
+    if (testCount >= 5){
+      break;
+    }
+    testCount++;
+
     console.log("Build::load() -- starting new page...");
     const scannerInfo = parseScannerUrl(row.last_two_side_by_side);
     let page = pages[scannerInfo.pageId];
@@ -103,11 +116,16 @@ export async function load(){
     // ]);
 
     console.log("Build::load() -- loading page: " + scannerInfo.pageId);
-    page = page || await dbClient.getPage(scannerInfo.pageId);
+    const pageResult = await limiter.schedule(() => dbClient.getPage(scannerInfo.pageId));
+    page = page || pageResult;
+
     console.log("Build::load() -- loading versionA: " + scannerInfo.beforeId);
-    versionA = versionA || await dbClient.getVersion(scannerInfo.beforeId);
+    const beforeResult = await limiter.schedule(() => dbClient.getVersion(scannerInfo.beforeId));
+    versionA = versionA || beforeResult;
+
     console.log("Build::load() -- loading versionB: " + scannerInfo.afterId);
-    versionB = versionB || await dbClient.getVersion(scannerInfo.afterId);
+    const afterResult = await limiter.schedule(() => dbClient.getVersion(scannerInfo.afterId));
+    versionB = versionB || afterResult;
 
     console.log("Build::load() -- promises complete!");
 
@@ -172,34 +190,34 @@ export async function load(){
   await savePages(pages);
   await saveVersions(versions);
 
-  const templateEnv = nunjucks.configure('templates');
+  // const templateEnv = nunjucks.configure('templates');
 
-  templateEnv.addFilter('nobreak', (text, maxLength = 25) => {
-    if (text.length <= maxLength) {
-      return text.replace(/\s/g, '\u00a0');
-    }
-    return text;
-  });
+  // templateEnv.addFilter('nobreak', (text, maxLength = 25) => {
+  //   if (text.length <= maxLength) {
+  //     return text.replace(/\s/g, '\u00a0');
+  //   }
+  //   return text;
+  // });
 
-  templateEnv.addFilter('sitePath', (urlPath) => {
-    if (urlPath.startsWith('/')) urlPath = urlPath.slice(1);
-    return path.join(BASE_PATH, urlPath);
-  });
+  // templateEnv.addFilter('sitePath', (urlPath) => {
+  //   if (urlPath.startsWith('/')) urlPath = urlPath.slice(1);
+  //   return path.join(BASE_PATH, urlPath);
+  // });
 
-  const markdowner = markdownit({
-    html: true,
-    linkify: true,
-    typographer: true
-  });
-  templateEnv.addFilter('markdown', (text) => {
-    return new nunjucks.runtime.SafeString(markdowner.render(text));
-  });
+  // const markdowner = markdownit({
+  //   html: true,
+  //   linkify: true,
+  //   typographer: true
+  // });
+  // templateEnv.addFilter('markdown', (text) => {
+  //   return new nunjucks.runtime.SafeString(markdowner.render(text));
+  // });
 
-  const sitePages = [
-    { title: '', navTitle: 'Data', path: '/', template: 'index.html' },
-    { title: 'Table View', path: '/tabular', template: 'tabular.html' },
-    { title: 'About', path: '/about/', template: 'about.html' }
-  ];
+  // const sitePages = [
+  //   { title: '', navTitle: 'Data', path: '/', template: 'index.html' },
+  //   { title: 'Table View', path: '/tabular', template: 'tabular.html' },
+  //   { title: 'About', path: '/about/', template: 'about.html' }
+  // ];
 
   tableRows.sort((a, b) => {
     if (a.versionB.capture_time < b.versionB.capture_time) {
@@ -222,20 +240,20 @@ export async function load(){
     return counts;
   }, {});
 
-  await fs.mkdir('site', { recursive: true });
-  await fs.cp('static', 'site/static', { recursive: true });
+  // await fs.mkdir('site', { recursive: true });
+  // await fs.cp('static', 'site/static', { recursive: true });
 
-  for (const page of sitePages) {
-    const content = templateEnv.render(page.template, {
-      BASE_PATH: process.env.BASE_PATH,
-      trackerData: tableRows,
-      pageChangeCounts,
-      nav: sitePages,
-      currentPage: page
-    });
-    const htmlPath = path.join('site', page.path, 'index.html');
-    await fs.mkdir(path.dirname(htmlPath), { recursive: true });
-    await fs.writeFile(htmlPath, content, { encoding: 'utf-8' });
-  }
+  // for (const page of sitePages) {
+  //   const content = templateEnv.render(page.template, {
+  //     BASE_PATH: process.env.BASE_PATH,
+  //     trackerData: tableRows,
+  //     pageChangeCounts,
+  //     nav: sitePages,
+  //     currentPage: page
+  //   });
+  //   const htmlPath = path.join('site', page.path, 'index.html');
+  //   await fs.mkdir(path.dirname(htmlPath), { recursive: true });
+  //   await fs.writeFile(htmlPath, content, { encoding: 'utf-8' });
+  // }
 
 }

@@ -7,33 +7,43 @@ export class WebMonitoringDb {
   }
 
   async getVersion(versionId) {
+
+
+
       const content = await this._fetch(`/versions/${versionId}?different=false`);
       return content.data;
   }
 
+  // async _fetchSlowdown(url, options = {}){
+  //   setTimeout(() => {
+  //     returnawait _fetch(url, options)
+  //   }, 1000);
+  // }
+
   async _fetch(url, options = {}) {
-      // const response = await fetch(`${this.baseUrl}${url}`, options);
-      // if (response.status >= 400) {
-      //     const text = await response.text();
-      //     throw new Error(`HTTP ${response.status} error: ${text}`);
-      // }
-
-      // return await response.json();
-    console.log("WebMonitoringDb::fetch() -- " + url);
-    let response = '';
-
-       try {
-        response = await fetch(`${this.baseUrl}${url}`, options);
-      } catch (error) {
-        if (error.code === 'ENOENT') {
-          return [];
-        }
-
-        throw error;
+      const response = await fetch(`${this.baseUrl}${url}`, options);
+      if (response.status >= 400) {
+          const text = await response.text();
+          throw new Error(`HTTP ${response.status} error: ${text}`);
       }
 
-      return response.json()
-  }
+      return await response.json();
+  //   console.log("WebMonitoringDb::fetch() -- " + url);
+  //   let response = '';
+
+  //      try {
+
+  //       response = await fetch(`${this.baseUrl}${url}`, options);
+  //     } catch (error) {
+  //       if (error.code === 'ENOENT') {
+  //         return [];
+  //       }
+
+  //       throw error;
+  //     }
+
+  //     return response.json()
+  // }
 }
 
 export function parseScannerUrl(url) {

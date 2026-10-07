@@ -1,0 +1,328 @@
+:root {
+  --color-topic-climate: #dc7e6b;
+  --color-topic-weather: #f9cb9c;
+  --color-topic-energy: #ffd967;
+  --color-topic-governance: #d5a6bd;
+  --color-topic-assistance: #e6b8af;
+  --color-topic-science: #6d9eeb;
+  --color-topic-educational: #b7e1cd;
+  --color-topic-health: #c9daf8;
+  --color-topic-economy: #fff1cc;
+  --color-topic-air: #f3f3f3;
+  --color-topic-chemicals: #f6b26b;
+  --color-topic-conservation: #6aa84f;
+  --color-topic-data: #8e7cc3;
+  --color-topic-environmental: #93c47e;
+  --color-topic-equity: #38761e;
+  --color-topic-infrastructure: #b7b7b7;
+  --color-topic-remediation: #b45f05;
+  --color-topic-water: #3c78d8;
+  --color-topic-administration: #ead1dc;
+}
+
+html {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2 {
+  font-family: 'Open Sans Condensed';
+}
+
+a {
+  color: #4da395;
+}
+
+a:focus {
+  color: #443f3f;
+}
+
+main {
+  padding: 1rem;
+}
+
+#site-header {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+#site-header h1 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+#site-header .logo {
+  align-self: flex-start;
+  height: 2.8em;
+  vertical-align: text-bottom;
+}
+
+#site-header nav {
+
+}
+
+#site-header nav ol {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+#site-header nav a {
+  border-bottom: 4px solid transparent;
+  display: block;
+  text-decoration: none;
+}
+
+#site-header nav a:hover {
+  border-bottom-color: #999;
+}
+
+#site-header nav .nav-active,
+#site-header nav .nav-active:hover {
+  border-bottom-color: #e56d13;
+}
+
+.tracker-data-view {
+  margin-top: 3rem;
+}
+
+.tracker-filter {
+  display: flex;
+  gap: 1em;
+  margin: 0.5em 0;
+}
+.tracker-filter fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.tracker-filter legend {
+  float: left;
+}
+
+table {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+table thead th {
+  position: sticky;
+  top: 0;
+}
+
+table th,
+table td {
+  border: 1px solid #ccc;
+  padding: 0.2rem 0.5rem;
+  text-align: left;
+  vertical-align: text-top;
+}
+
+tbody tr:nth-child(odd) td {
+  background: #f3f3f3;
+}
+
+.cell-time {
+  min-width: 12em;
+}
+
+.cell-time .separator {
+  /* margin: 0 0.1em; */
+}
+
+.cell-url {
+  min-width: 10em;
+}
+
+.cell-topics {
+  min-width: 10em;
+}
+
+.cell-topics ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  /* display: flex;
+  gap: 0.25em;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start; */
+}
+
+.cell-topics li {
+  margin: 0;
+  display: inline;
+}
+
+.cell-links {
+  min-width: 10em;
+}
+
+.cell-links ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.cell-links li {
+  margin: 0;
+  padding: 0;
+}
+
+.topic-name {
+  background: #ccc;
+  border-radius: 1em;
+  padding: 0.025em 0.5em;
+  /* white-space: nowrap; */
+}
+
+tbody tr td:nth-child(4) {
+  line-break: anywhere;
+  line-clamp: 1;
+  word-break: break-word;
+}
+
+#tracker-list-view {
+  max-width: 60rem;
+}
+
+#tracker-list-view ol {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+#tracker-list-view .tracker-item {
+  border-top: 1px solid #333;
+  margin-bottom: 1rem;
+  padding: 0.25em 0;
+}
+
+.tracker-item--agency {
+  font-weight: bold;
+  font-size: 0.75em;
+  color: #999;
+}
+
+.tracker-item--title {}
+
+.tracker-item--time {
+  float: right;
+}
+
+.tracker-item--time .label {
+  display: block;
+  font-weight: bold;
+  font-size: 0.75rem;
+  color: #999;
+}
+
+.tracker-item--url {
+  font-size: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.tracker-item--tagging {
+  font-size: 0.875rem;
+}
+
+.tracker-item--change-type {
+  display: inline-block;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tracker-item--change-type li {
+  border-radius: 1em;
+  display: inline;
+  padding: 0.025em 0.5em;
+}
+
+.tracker-item--change-type .change-type--access { background: #d43a69; color: white; }
+.tracker-item--change-type .change-type--substance { background: #e56d13; color: white; }
+/* .tracker-item--change-type .change-type--access { border: 2px solid #d43a69; box-shadow: inset 0 0 2px #d43a69; }
+.tracker-item--change-type .change-type--substance { border: 2px solid #e56d13; box-shadow: inset 0 0 2px #e56d13; } */
+
+.tracker-item--topics {
+  display: inline-block;
+  margin-left: 2em;
+}
+.tracker-item--topics ul {
+  display: inline;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.tracker-item--topics li {
+  display: inline;
+}
+
+.tracker-item--details {
+  margin-top: 0.5rem;
+}
+.tracker-item--details summary {
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+.tracker-item--details::details-content {
+
+}
+.tracker-item--details p {
+  margin: 0.5rem 0;
+}
+
+.topic--climate { background: var(--color-topic-climate); }
+.topic--weather { background: var(--color-topic-weather); }
+.topic--energy { background: var(--color-topic-energy); }
+.topic--governance { background: var(--color-topic-governance); }
+.topic--assistance { background: var(--color-topic-assistance); }
+.topic--science { background: var(--color-topic-science); }
+.topic--educational { background: var(--color-topic-educational); }
+.topic--health { background: var(--color-topic-health); }
+.topic--economy { background: var(--color-topic-economy); }
+.topic--air { background: var(--color-topic-air); }
+.topic--chemicals { background: var(--color-topic-chemicals); }
+.topic--conservation { background: var(--color-topic-conservation); }
+.topic--data { background: var(--color-topic-data); }
+.topic--environmental { background: var(--color-topic-environmental); }
+.topic--equity { background: var(--color-topic-equity); }
+.topic--infrastructure { background: var(--color-topic-infrastructure); }
+.topic--remediation { background: var(--color-topic-remediation); }
+.topic--water { background: var(--color-topic-water); }
+.topic--administration { background: var(--color-topic-administration); }
+
+/* #tracker-list-view .topic-name { background: none; border: 2px solid #ccc; }
+#tracker-list-view .topic--climate { border-color: var(--color-topic-climate); box-shadow: inset 0 0 2px var(--color-topic-climate); }
+#tracker-list-view .topic--weather { border-color: var(--color-topic-weather); box-shadow: inset 0 0 2px var(--color-topic-weather); }
+#tracker-list-view .topic--energy { border-color: var(--color-topic-energy); box-shadow: inset 0 0 2px var(--color-topic-energy); }
+#tracker-list-view .topic--governance { border-color: var(--color-topic-governance); box-shadow: inset 0 0 2px var(--color-topic-governance); }
+#tracker-list-view .topic--assistance { border-color: var(--color-topic-assistance); box-shadow: inset 0 0 2px var(--color-topic-assistance); }
+#tracker-list-view .topic--science { border-color: var(--color-topic-science); box-shadow: inset 0 0 2px var(--color-topic-science); }
+#tracker-list-view .topic--educational { border-color: var(--color-topic-educational); box-shadow: inset 0 0 2px var(--color-topic-educational); }
+#tracker-list-view .topic--health { border-color: var(--color-topic-health); box-shadow: inset 0 0 2px var(--color-topic-health); }
+#tracker-list-view .topic--economy { border-color: var(--color-topic-economy); box-shadow: inset 0 0 2px var(--color-topic-economy); }
+#tracker-list-view .topic--air { border-color: var(--color-topic-air); box-shadow: inset 0 0 2px var(--color-topic-air); }
+#tracker-list-view .topic--chemicals { border-color: var(--color-topic-chemicals); box-shadow: inset 0 0 2px var(--color-topic-chemicals); }
+#tracker-list-view .topic--conservation { border-color: var(--color-topic-conservation); box-shadow: inset 0 0 2px var(--color-topic-conservation); }
+#tracker-list-view .topic--data { border-color: var(--color-topic-data); box-shadow: inset 0 0 2px var(--color-topic-data); }
+#tracker-list-view .topic--environmental { border-color: var(--color-topic-environmental); box-shadow: inset 0 0 2px var(--color-topic-environmental); }
+#tracker-list-view .topic--equity { border-color: var(--color-topic-equity); box-shadow: inset 0 0 2px var(--color-topic-equity); }
+#tracker-list-view .topic--infrastructure { border-color: var(--color-topic-infrastructure); box-shadow: inset 0 0 2px var(--color-topic-infrastructure); }
+#tracker-list-view .topic--remediation { border-color: var(--color-topic-remediation); box-shadow: inset 0 0 2px var(--color-topic-remediation); }
+#tracker-list-view .topic--water { border-color: var(--color-topic-water); box-shadow: inset 0 0 2px var(--color-topic-water); }
+#tracker-list-view .topic--administration { border-color: var(--color-topic-administration); box-shadow: inset 0 0 2px var(--color-topic-administration); } */
