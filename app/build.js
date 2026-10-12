@@ -6,9 +6,8 @@ import { readPublishSheet, readPages, readVersions, savePages, saveVersions } fr
 import { WebMonitoringDb, parseScannerUrl } from './lib/web-monitoring-db.js';
 
 import Bottleneck from "bottleneck";
-
-//const BASE_PATH = process.env.BASE_PATH || '/';
-const BASE_PATH = '/';
+const BASE_PATH = process.env.BASE_PATH || '/';
+//const BASE_PATH = '/';
 
 // FIXME: should probably include the palette here and write it out dynamically
 // to the HTML output.
