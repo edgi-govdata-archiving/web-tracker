@@ -24,7 +24,8 @@
 
 header{
   padding: 10px;
-  align-items: center
+  align-items: center;
+  background-color: #dddddd;
 }
 
 .site-name{

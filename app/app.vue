@@ -1,8 +1,12 @@
 <template>
+  <Header/>
   <NuxtPage />
+  <Footer/>
 </template>
 
 <script>
+import Header from "./components/Header.vue"
+import Footer from "./components/Footer.vue"
 import { download } from "./download-publish-sheet.js"
 import { load } from "./build.js"
 
@@ -13,4 +17,6 @@ import { load } from "./build.js"
 
 <style>
   @import './assets/base.css';
+
+
 </style>
