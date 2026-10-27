@@ -10,3 +10,7 @@ import { load } from "./build.js"
 // load();
 
 </script>
+
+<style>
+  @import './assets/base.css';
+</style>
