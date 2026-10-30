@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
-import path from 'node:path';
+import path from "path-browserify"
+
 
 export const dataPath = path.resolve(import.meta.dirname, '../data-cache');
 
