@@ -1,5 +1,7 @@
 {
   "name": "web-tracker",
+  "author": "Environmental Data & Governance Initiative <info@evirodatagov.org>",
+  "license": "GPL-3.0-only",
   "type": "module",
   "private": true,
   "scripts": {
