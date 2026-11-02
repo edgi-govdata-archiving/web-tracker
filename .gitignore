@@ -1,11 +1,24 @@
-.DS_Store
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
 
+# Node dependencies
 node_modules
 
-site
+# Logs
+logs
+*.log
 
-# Other data-cache files get saved. This one is considered sensitive for now.
-data-cache/publish-sheet.json
+# Misc
+.DS_Store
+.fleet
+.idea
 
+# Local env files
+.env
 .env.*
-scratch.*
+!.env.example

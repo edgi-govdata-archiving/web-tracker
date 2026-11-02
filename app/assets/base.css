@@ -1,0 +1,65 @@
+
+:root {
+  --white: #ffffff;
+  --beige-1: #092439;
+  --beige-2: #EEEBE6;
+  --beige-3: #E2E0DC;
+  --beige-4: #747270;
+
+  --edgi-blue: #092439;
+  --blue: #19649F;
+  --terracotta: #B85A50;
+  --mustard: #C99A3E;
+  --olive: #7A8450;
+  --plum: #7A5C7D;
+  --teal: #54CDBC;
+  --light-teal: #54CDBC;
+}
+
+@font-face {
+  font-family: 'Mona Sans';
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+  src: url("./fonts/Mona Sans/Mona-Sans-Regular.otf") format("opentype");
+}
+
+
+@font-face {
+  font-family: 'Loretta';
+  font-weight: 400;
+  font-style: normal;
+  font-display: auto;
+  src: url("./fonts/Loretta/.48597.otf") format("opentype");
+}
+
+body {
+  min-height: 100vh;
+  font-family: 'Loretta', serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+h1{
+  font-family: 'Mono Sans', sans-serif;
+  font-size: 40px;
+}
+
+h2{
+  font-family: 'Mono Sans', sans-serif;
+  font-size: 30px;
+}
+
+h3{
+  font-family: 'Mono Sans', sans-serif;
+  font-size: 25px;
+}
+
+h4{
+  font-family: 'Mono Sans', sans-serif;
+  font-size: 18px;
+}
